@@ -1,7 +1,8 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path')
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const cors = require('cors');
 
 const app = express();
 const port = 4545;
@@ -31,5 +32,6 @@ const accessCodesRoutes = require('./routes/v1/accesscodes');
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 app.use('/v1/codes/lockers', lockerRoutes);
 app.use('/v1/codes/access', accessCodesRoutes);
