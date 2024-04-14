@@ -66,7 +66,7 @@ router.patch('/:id', async (req, res) => {
     let exists = await accessCodesSchema.findById(id);
     if(!exists) return res.status(404).json({error: true, reason: "Locker Code does not exists with that ID"});
 
-    let patched = await accessCodesSchema.findByIdAndUpdate({_id: id}, body);
+    let patched = await accessCodesSchema.findByIdAndUpdate({_id: id}, body, {new: true});
 
     res.status(200).json({error: false, message: 'Locker Code Updated Successfully', accessCode: patched});
     
