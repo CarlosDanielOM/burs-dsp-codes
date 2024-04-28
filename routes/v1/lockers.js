@@ -6,7 +6,7 @@ const path = require('path')
 const lockerSchema = require(path.resolve(__dirname, './../../schemas/lockers.js'));
 
 router.get('/', async (req, res) => {
-    let lockers = await lockerSchema.find().sort({succeeds: 1, rejects: -1});
+    let lockers = await lockerSchema.find().sort({succeeds: 1, rejects: -1}).exec();
     res.status(200).json({lockers});
 });
 

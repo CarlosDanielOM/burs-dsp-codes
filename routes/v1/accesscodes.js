@@ -5,7 +5,7 @@ const path = require('path');
 const accessCodesSchema = require(path.resolve(__dirname, './../../schemas/accesscodes'));
 
 router.get('/', async (req, res) => {
-    const accessCodes = await accessCodesSchema.find().sort({succeeds: 1, rejects: -1});
+    const accessCodes = await accessCodesSchema.find().sort({succeeds: 1, rejects: -1}).exec();
     res.status(200).json({error: false, accessCodes});
 });
 
