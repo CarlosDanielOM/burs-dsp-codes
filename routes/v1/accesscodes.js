@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:address', async (req, res) => {
-    const address = req.params.address;
+    let address = req.params.address;
     address = address.split('%20').join(' ');
     const accessCodes = await accessCodesSchema.find({ address });
     if (!accessCodes) return res.status(404).json({ error: true, reason: "The access code with that address does not exist" });

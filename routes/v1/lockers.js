@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
 });
 
 router.get('/:address', async (req, res) => {
-    const address = req.params.address;
+    let address = req.params.address;
+    address = address.split('%20').join(' ');
     const lockerCodes = await lockerSchema.find({ address });
     if (!lockerCodes || lockerCodes.length === 0) return res.status(404).json({ error: true, reason: "No locker codes found with that address" });
 
