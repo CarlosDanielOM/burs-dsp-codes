@@ -10,15 +10,14 @@ router.get('/', async (req, res) => {
     res.status(200).json({lockers});
 });
 
-router.get('/:id', async (req, res) => {
-    let id = req.params.id;
+router.get('/:address', async (req, res) => {
+    const address = req.params.address;
+    const lockerCodes = await lockerSchema.find({ address });
+    if (!lockerCodes || lockerCodes.length === 0) return res.status(404).json({ error: true, reason: "No locker codes found with that address" });
 
-    let exists = await lockerSchema.findById(id);
-    if(!exists) return res.status(404).json({error: true, reason: 'Locker Code does not exists'});
-
-    return res.status(200).json({error: false, locker: exists});
-    
+    res.status(200).json({ error: false, lockerCodes });
 });
+
 
 router.post('/', async (req, res) => {
     let body = req.body;

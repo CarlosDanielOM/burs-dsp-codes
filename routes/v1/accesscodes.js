@@ -9,12 +9,15 @@ router.get('/', async (req, res) => {
     res.status(200).json({error: false, accessCodes});
 });
 
-router.get('/:id', async (req, res) => {
-    const accessCode = await accessCodesSchema.findById(req.params.id);
-    if(!accessCode) return res.status(404).json({error: true, reason: "The access code with that ID does not exist"});
+router.get('/:address', async (req, res) => {
+    const address = req.params.address;
+    address = address.split('%20').join(' ');
+    const accessCodes = await accessCodesSchema.find({ address });
+    if (!accessCodes) return res.status(404).json({ error: true, reason: "The access code with that address does not exist" });
 
-    res.status(200).json({error: false, accessCode});
-})
+    res.status(200).json({ error: false, accessCodes });
+});
+
 
 router.post('/', async (req, res) => {
     let body = req.body;
